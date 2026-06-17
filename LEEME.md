@@ -1,52 +1,50 @@
-# 🥖 PAN EXPRESS — Prototipo funcional
+# 🥖 PAN EXPRESS — App de gestión de panadería
 
-App de **pedido de pan a domicilio** con control de ventas, gastos, repartidores,
-insumos, finanzas y alertas. Este es un **prototipo funcional** que corre 100% en
-el navegador (sin instalar nada ni contratar servidores todavía).
-
----
-
-## ▶️ Cómo abrirlo
-
-1. Abre el archivo **`index.html`** con doble clic (se abre en tu navegador).
-   - Funciona en PC, tablet y celular.
-   - Recomendado: Chrome, Edge o Safari.
-2. Elige un rol en la pantalla de inicio:
-   - **🛒 Soy Cliente** → hacer un pedido de pan.
-   - **🔐 Administrador** → panel de gestión.
-     - Usuario: **`admin`** · Contraseña: **`1234`**
-
-> Los datos se guardan en **este dispositivo** (localStorage del navegador).
-> Para volver a los datos de ejemplo, usa **"Reiniciar datos de demostración"**
-> en la pantalla de inicio.
+App **real y local** para gestionar tu panadería: pedidos, clientes, repartidores,
+insumos, gastos, finanzas, reportes y alertas. Guarda todo en una **base de datos
+en tu propio PC** (SQLite). **No necesita internet, ni contraseñas, ni pagos mensuales.**
 
 ---
 
-## 📦 Qué incluye este prototipo
+## ▶️ Cómo abrir la app (lo único que necesitas hacer)
 
-### Módulo Cliente
-- Catálogo: Marraqueta, Hallulla, Pan amasado, Pan integral, Pan especial.
-- Selección de cantidad por kilo, dirección, hora y método de pago
-  (efectivo, transferencia, tarjeta, pago online).
-- **Seguimiento del pedido en vivo**: recibido → preparación → reparto → entregado.
+### Doble clic en **`Pan Express (abrir).bat`**
 
-### Pedidos por WhatsApp (simulador)
-- Escribe un mensaje natural como *"Quiero 3 kilos de marraqueta para las 18:00"*
-  y el sistema **interpreta el pedido, lo crea, asigna número e informa el precio**.
-- Esto es lo que en producción haría la **WhatsApp Business API**.
+- Se abrirá una ventana negra (es el "motor" de la app) y, a los pocos segundos,
+  la app se abrirá sola en tu navegador.
+- **Deja la ventana negra abierta** mientras usas la app.
+- Para **cerrar la app**, simplemente cierra esa ventana negra.
 
-### Panel Administrador
-- **Dashboard**: ventas del día, N° de pedidos, clientes nuevos/frecuentes y alertas.
-- **Pedidos**: tabla en tiempo real, avanzar estado y asignar repartidor.
-- **Clientes**: base de datos, historial y frecuencia de compra.
-- **Repartidores**: registro, entregados/pendientes, horas y km.
-- **Insumos**: stock de harina, levadura, sal y bolsas con **alerta de stock bajo**.
-- **Gastos**: planilla de sueldos, mantención de vehículos y egresos.
-- **Finanzas**: ingresos − egresos = **utilidad**, con desglose.
-- **Reportes**: diario, productos más vendidos y resumen mensual.
-- **Alertas 🔔**: pedidos pendientes, stock bajo, vehículo a mantención,
-  cliente frecuente inactivo (15+ días). Con **alarma sonora opcional**
-  (botón "Activar sonido" en el menú).
+> La primera vez puede tardar un poco más (prepara los componentes). Las siguientes
+> veces abre al instante.
+
+Si el navegador no abrió solo, entra a: **http://localhost:3000**
+
+---
+
+## 🔐 Entrar como administrador
+- En la pantalla de inicio elige **Administrador**.
+- Usuario: **`admin`** · Contraseña: **`1234`**
+- (Esta clave se puede cambiar más adelante.)
+
+## 🛒 Vista cliente
+- Elige **Soy Cliente** para hacer un pedido (catálogo, cantidad, dirección, pago).
+- Los pedidos que se crean aquí aparecen en el panel del administrador.
+
+---
+
+## 💾 ¿Dónde se guardan mis datos?
+
+Todo queda guardado en el archivo:
+
+```
+server/panexpress.db
+```
+
+- Es tu base de datos. Si lo respaldas (copias a un pendrive o la nube), respaldas
+  TODO tu negocio.
+- Para empezar de cero, puedes borrar ese archivo: la app creará uno nuevo con datos
+  de ejemplo la próxima vez que la abras.
 
 ---
 
@@ -54,36 +52,33 @@ el navegador (sin instalar nada ni contratar servidores todavía).
 
 ```
 Panaderia/
-├── index.html          ← punto de entrada
-├── css/styles.css      ← diseño
-└── js/
-    ├── store.js        ← datos y persistencia (futuro: PostgreSQL/MySQL)
-    ├── utils.js        ← formato, alertas y notificaciones
-    ├── whatsapp.js     ← intérprete de pedidos por WhatsApp
-    ├── views.js        ← todas las pantallas
-    └── app.js          ← navegación, login y alarmas
+├── Pan Express (abrir).bat   ← ABRE LA APP con doble clic
+├── index.html                ← interfaz
+├── css/styles.css            ← diseño
+├── js/                       ← lógica de la app
+│   ├── store.js  (conecta con la base de datos)
+│   ├── utils.js, whatsapp.js, views.js, app.js
+└── server/
+    ├── server.js             ← el "motor" (Node.js + SQLite)
+    ├── package.json
+    └── panexpress.db         ← TU BASE DE DATOS (tus datos reales)
 ```
 
 ---
 
-## 🚀 Camino a la versión de producción
+## ❓ Preguntas frecuentes
 
-Este prototipo demuestra **toda la lógica del negocio**. Para convertirlo en la app
-real que describes, los siguientes pasos:
+**¿Necesito internet?** No. Funciona completamente en tu PC.
 
-| Necesidad             | Tecnología recomendada                          |
-|-----------------------|-------------------------------------------------|
-| Base de datos real    | **PostgreSQL** o MySQL                           |
-| Backend / API         | Node.js + Express (o similar)                    |
-| App cliente Android/iOS | React Native o Flutter (reutiliza esta lógica)|
-| Pedidos automáticos   | **WhatsApp Business API**                        |
-| Direcciones y rutas   | **Google Maps API**                             |
-| Pagos online          | **Transbank Webpay** y **Mercado Pago**         |
-| Panel administrador   | Web (este mismo diseño, conectado al backend)    |
+**¿Tiene costo?** No. Es gratis.
 
-El diseño visual, los flujos y las reglas (precios, estados, alertas, finanzas)
-ya están definidos aquí y se pueden trasladar directo al desarrollo final.
+**¿Puedo usarla desde el celular?** Sí, si el celular está en la misma red WiFi que
+el PC. (Lo configuramos cuando quieras.)
+
+**¿Y la versión online para que los clientes pidan desde cualquier lugar, con WhatsApp
+automático y pago con tarjeta?** Eso es un paso posterior (tiene costos mensuales por
+los servicios externos). Esta versión local ya te sirve para gestionar el día a día.
 
 ---
 
-*Prototipo creado el 16-06-2026. Listo para mostrar y probar.*
+*App local creada con Node.js + SQLite. Sin dependencias de pago.*

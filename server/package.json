@@ -1,0 +1,13 @@
+{
+  "name": "pan-express-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Servidor local de Pan Express (Node.js + SQLite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --no-warnings server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

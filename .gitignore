@@ -1,3 +1,18 @@
-# nada que ignorar por ahora
+# Dependencias y datos locales (no se suben a internet)
+server/node_modules/
+server/*.db
+server/config.json
+
+# APK / Capacitor — artefactos de compilación (se generan, no se versionan)
+apk/node_modules/
+apk/android/.gradle/
+apk/android/build/
+apk/android/app/build/
+apk/android/local.properties
+apk/android/.idea/
+apk/android/captures/
+apk/gradle-dist/
+
+# Sistema
 Thumbs.db
 .DS_Store

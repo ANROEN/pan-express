@@ -1,0 +1,14 @@
+{
+  "name": "pan-express-apk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Empaquetado APK de Pan Express (Capacitor)",
+  "scripts": {
+    "sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0"
+  }
+}
